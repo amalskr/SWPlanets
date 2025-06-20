@@ -2,6 +2,9 @@ package com.ainext.swplanets
 
 import android.app.Application
 import android.content.Context
+import com.ainext.swplanets.presentation.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
 class SwPlanetsApp : Application() {
 
@@ -13,6 +16,12 @@ class SwPlanetsApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         instance = this
+
+        startKoin {
+            androidContext(this@SwPlanetsApp)
+            modules(appModule)
+        }
     }
 }
