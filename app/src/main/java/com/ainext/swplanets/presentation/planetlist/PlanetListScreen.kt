@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -76,10 +75,7 @@ fun PlanetListScreen(
 
 @Composable
 fun PlanetCard(planet: Planet) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(4.dp)
-    ) {
+    Card(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.padding(16.dp)) {
             Image(
                 painter = rememberAsyncImagePainter("https://picsum.photos/100?random=${planet.name}"),
@@ -88,7 +84,10 @@ fun PlanetCard(planet: Planet) {
                     .size(64.dp)
                     .padding(end = 12.dp)
             )
-            Column {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
                 Text(planet.name, style = MaterialTheme.typography.titleMedium)
                 Text("Climate: ${planet.climate}", style = MaterialTheme.typography.bodyMedium)
             }
