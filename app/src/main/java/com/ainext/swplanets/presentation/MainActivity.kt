@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.ainext.swplanets.presentation.planetlist.PlanetListScreen
 import com.ainext.swplanets.presentation.splash.SplashScreen
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 
@@ -38,6 +39,9 @@ fun AppNavigator() {
         ) {
             composable("splash") {
                 SplashScreen(navController)
+            }
+            composable("planet_list") {
+                PlanetListScreen(navController)
             }
         }
     }
