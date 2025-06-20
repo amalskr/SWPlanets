@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ainext.swplanets.data.repository.PlanetRepository
 import com.ainext.swplanets.utils.NetworkObserver
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class PlanetListViewModel(
@@ -11,17 +12,25 @@ class PlanetListViewModel(
     private val planetRepo: PlanetRepository
 ) : ViewModel() {
 
+    val planetUiState = MutableStateFlow<PlanetUiState>(PlanetUiState.Loading)
+
     fun onLoadPlanetList() {
         viewModelScope.launch {
             if (networkObs.isNetworkAvailable()) {
                 try {
-                    val planets = planetRepo.getPlanets()
-                    println("Planets fetched: ${planets.size}")
+                    planetUiState.value = PlanetUiState.Loading
+                    val planetsList = planetRepo.getPlanets()
+
+                    if (planetsList.isNotEmpty()) {
+                        planetUiState.value = PlanetUiState.Success(planetsList)
+                    } else {
+                        planetUiState.value = PlanetUiState.Error("No planets found")
+                    }
                 } catch (e: Exception) {
-                    println("Error fetching planets: ${e.message}")
+                    planetUiState.value = PlanetUiState.Error(e.message ?: "Unknown error")
                 }
             } else {
-                println("No network available")
+                planetUiState.value = PlanetUiState.Error("No Internet Connection")
             }
         }
     }

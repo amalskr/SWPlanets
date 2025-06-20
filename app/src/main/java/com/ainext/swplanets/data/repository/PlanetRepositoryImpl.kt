@@ -1,5 +1,7 @@
 package com.ainext.swplanets.data.repository
 
+import android.util.Log
+import androidx.compose.ui.platform.LocalGraphicsContext
 import com.ainext.swplanets.data.service.PlanetApiService
 import com.ainext.swplanets.domain.Planet
 
@@ -19,8 +21,8 @@ class PlanetRepositoryImpl(
                 )
             }
         } catch (e: Exception) {
-            // You can log or handle the error here
-            emptyList() // Return fallback empty list or rethrow based on your strategy
+            Log.e("PlanetRepository", "Error fetching planets: ${e.message}")
+            emptyList()
         }
     }
 }
