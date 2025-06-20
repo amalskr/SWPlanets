@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import kotlinx.coroutines.delay
 
@@ -18,10 +19,10 @@ import kotlinx.coroutines.delay
 fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(Unit) {
-        delay(5000)
+        delay(2000)
 
-        navController.navigate("planet_list") {
-            popUpTo("splash") { inclusive = true }
+        navController.navigate(Screen.PlanetList.route) {
+            popUpTo(Screen.Splash.route) { inclusive = true }
         }
     }
 
@@ -38,7 +39,7 @@ fun SplashScreen(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ScreenPreview() {
     SWPlanetsTheme {
         SplashScreen(navController = rememberNavController())
     }

@@ -34,13 +34,13 @@ fun AppNavigator() {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = "splash",
+            startDestination = Screen.Splash.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable("splash") {
+            composable(Screen.Splash.route) {
                 SplashScreen(navController)
             }
-            composable("planet_list") {
+            composable(Screen.PlanetList.route) {
                 PlanetListScreen(navController)
             }
         }

@@ -28,7 +28,7 @@ fun PlanetListScreen(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun ScreenPreview() {
     SWPlanetsTheme {
         PlanetListScreen(navController = rememberNavController())
     }
