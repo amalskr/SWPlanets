@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,6 +34,7 @@ import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import org.koin.compose.koinInject
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlanetListScreen(
     navController: NavController,
@@ -44,31 +48,53 @@ fun PlanetListScreen(
         listVm.onLoadPlanetList()
     }
 
-    when (uiState) {
-        is PlanetUiState.Loading -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        }
-
-        is PlanetUiState.Success -> {
-            val planets = (uiState as PlanetUiState.Success).planets
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                items(planets) { planet ->
-                    PlanetCard(planet = planet)
+    //Main Content
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    Text("Planets", style = MaterialTheme.typography.headlineSmall)
                 }
-            }
+            )
         }
+    ) { innerPadding ->
 
-        is PlanetUiState.Error -> {
-            val message = (uiState as PlanetUiState.Error).message
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = message, color = MaterialTheme.colorScheme.error)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+
+            when (uiState) {
+                //Loading View
+                is PlanetUiState.Loading -> {
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator()
+                    }
+                }
+
+                //Main List
+                is PlanetUiState.Success -> {
+                    val planets = (uiState as PlanetUiState.Success).planets
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(planets) { planet ->
+                            PlanetCard(planet = planet)
+                        }
+                    }
+                }
+
+                //Error View
+                is PlanetUiState.Error -> {
+                    val message = (uiState as PlanetUiState.Error).message
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(text = message, color = MaterialTheme.colorScheme.error)
+                    }
+                }
             }
         }
     }
