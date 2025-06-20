@@ -14,17 +14,13 @@ import androidx.navigation.compose.rememberNavController
 import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import kotlinx.coroutines.delay
-import org.koin.compose.koinInject
 
 @Composable
-fun SplashScreen(
-    navController: NavController,
-    splashVm: SplashViewModel = koinInject()
-) {
+fun SplashScreen(navController: NavController) {
 
     LaunchedEffect(Unit) {
         delay(2000)
-        splashVm.onLoad()
+
         navController.navigate(Screen.PlanetList.route) {
             popUpTo(Screen.Splash.route) { inclusive = true }
         }

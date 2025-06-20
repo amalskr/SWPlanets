@@ -1,11 +1,11 @@
-package com.ainext.swplanets.presentation.splash
+package com.ainext.swplanets.presentation.planetlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ainext.swplanets.utils.NetworkObserver
 import kotlinx.coroutines.launch
 
-class SplashViewModel(private val networkObs: NetworkObserver) : ViewModel() {
+class PlanetListViewModel(private val networkObs: NetworkObserver) : ViewModel() {
 
     fun onLoad() {
         viewModelScope.launch {
