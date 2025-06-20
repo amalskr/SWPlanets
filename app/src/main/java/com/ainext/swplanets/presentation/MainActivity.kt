@@ -44,14 +44,15 @@ fun AppNavigator() {
             PlanetListScreen(navController)
         }
 
-        composable(Screen.PlanetDetails.route+"/{planetJson}",
+        composable(
+            Screen.PlanetDetails.route + "/{planetJson}",
             arguments = listOf(navArgument("planetJson") {
                 type = NavType.StringType
             })
         ) { backStackEntry ->
             val json = backStackEntry.arguments?.getString("planetJson")
             val planet = json?.let { Json.decodeFromString<Planet>(URLDecoder.decode(it, "UTF-8")) }
-            planet?.let { PlanetDetailScreen(it) }
+            planet?.let { PlanetDetailScreen(navController, it) }
         }
     }
 }
