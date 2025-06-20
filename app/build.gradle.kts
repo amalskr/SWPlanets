@@ -63,6 +63,12 @@ dependencies {
     //navigation
     implementation("androidx.navigation:navigation-compose:2.8.9")
 
+    //Dependency Injection
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.runtime.livedata)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
