@@ -6,6 +6,5 @@ import com.ainext.swplanets.domain.Planet
 data class PlanetResponseDto(
     val count: Int,
     val next: String?,
-    val previous: String?,
     val results: List<Planet>
 )
