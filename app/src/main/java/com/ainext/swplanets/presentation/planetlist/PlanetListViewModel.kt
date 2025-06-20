@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class PlanetListViewModel(private val networkObs: NetworkObserver) : ViewModel() {
 
-    fun onLoad() {
+    fun onLoadPlanetList() {
         viewModelScope.launch {
             println("Called ViewModel :" + networkObs.isNetworkAvailable())
         }

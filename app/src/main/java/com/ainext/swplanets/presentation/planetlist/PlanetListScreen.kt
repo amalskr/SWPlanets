@@ -22,7 +22,7 @@ fun PlanetListScreen(
 
     //Load MainData
     LaunchedEffect(key1 = "MainData") {
-        listVm.onLoad()
+        listVm.onLoadPlanetList()
     }
 
     Box(
