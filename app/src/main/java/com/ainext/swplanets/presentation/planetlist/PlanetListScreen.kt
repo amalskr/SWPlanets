@@ -34,6 +34,7 @@ import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
+import com.ainext.swplanets.utils.GSHolder
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.koin.compose.koinInject
@@ -45,12 +46,16 @@ fun PlanetListScreen(
     navController: NavController,
     listVm: PlanetListViewModel = koinInject()
 ) {
-
+    val global = GSHolder.mState
     val uiState by listVm.planetUiState.collectAsState()
 
     //Load MainData
-    LaunchedEffect(key1 = "unit") {
-        listVm.onLoadPlanetList()
+    LaunchedEffect(Unit) {
+        if (global.planetList.value.isEmpty()) {
+            listVm.onLoadPlanetList()
+        }else{
+            listVm.planetUiState.value = PlanetUiState.Success(global.planetList.value)
+        }
     }
 
     //Main Content
@@ -81,6 +86,8 @@ fun PlanetListScreen(
                 //Main List
                 is PlanetUiState.Success -> {
                     val planets = (uiState as PlanetUiState.Success).planets
+                    global.planetList.value = planets
+
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
