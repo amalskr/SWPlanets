@@ -1,6 +1,7 @@
 package com.ainext.swplanets.presentation.planetlist
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,8 +32,12 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
+import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.koin.compose.koinInject
+import java.net.URLEncoder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,7 +88,11 @@ fun PlanetListScreen(
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         items(planets) { planet ->
-                            PlanetCard(planet = planet)
+                            PlanetCard(planet = planet, onItemClick = {
+                                val planetJson =
+                                    URLEncoder.encode(Json.encodeToString(planet), "UTF-8")
+                                navController.navigate(Screen.PlanetDetails.route + "/$planetJson")
+                            })
                         }
                     }
                 }
@@ -101,10 +110,12 @@ fun PlanetListScreen(
 }
 
 @Composable
-fun PlanetCard(planet: Planet) {
+fun PlanetCard(planet: Planet, onItemClick: (Planet) -> Unit) {
     val imageUrl = IMAGE_URL + planet.name
 
-    Card(modifier = Modifier.fillMaxWidth()) {
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .clickable { onItemClick(planet) }) {
         Row(modifier = Modifier.padding(16.dp)) {
             Image(
                 painter = rememberAsyncImagePainter(imageUrl),
