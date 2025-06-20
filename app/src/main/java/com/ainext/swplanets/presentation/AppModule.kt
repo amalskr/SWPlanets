@@ -7,8 +7,14 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    single { Json { isLenient = true; ignoreUnknownKeys = true } }
     single { NetworkObserver }
+    single {
+        Json {
+            isLenient = true
+            ignoreUnknownKeys = true
+            prettyPrint = true
+        }
+    }
 
     viewModel { PlanetListViewModel(get()) }
 }

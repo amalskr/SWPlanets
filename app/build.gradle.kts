@@ -70,7 +70,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.runtime.livedata)
 
-    //KotlinJson
+    //ktor for Network
+    implementation("io.ktor:ktor-client-core:2.3.4")
+    implementation("io.ktor:ktor-client-okhttp:2.3.4")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.4")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
     testImplementation(libs.junit)
