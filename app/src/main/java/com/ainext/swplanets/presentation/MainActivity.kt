@@ -1,4 +1,4 @@
-package com.ainext.swplanets
+package com.ainext.swplanets.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
