@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import org.koin.compose.koinInject
@@ -75,10 +76,12 @@ fun PlanetListScreen(
 
 @Composable
 fun PlanetCard(planet: Planet) {
+    val imageUrl = IMAGE_URL + planet.name
+
     Card(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.padding(16.dp)) {
             Image(
-                painter = rememberAsyncImagePainter("https://picsum.photos/100?random=${planet.name}"),
+                painter = rememberAsyncImagePainter(imageUrl),
                 contentDescription = null,
                 modifier = Modifier
                     .size(64.dp)

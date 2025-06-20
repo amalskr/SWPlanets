@@ -1,9 +1,10 @@
 package com.ainext.swplanets.presentation.di
 
+import com.ainext.swplanets.data.core.NetworkConstants.BASE_URL
 import com.ainext.swplanets.data.repository.PlanetRepository
 import com.ainext.swplanets.data.repository.PlanetRepositoryImpl
 import com.ainext.swplanets.data.service.PlanetApiService
-import com.ainext.swplanets.data.service.UnsafeOkHttpClient
+import com.ainext.swplanets.data.core.UnsafeOkHttpClient
 import com.ainext.swplanets.presentation.planetlist.PlanetListViewModel
 import com.ainext.swplanets.utils.NetworkObserver
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -34,7 +35,7 @@ val appModule = module {
     // Retrofit Instance
     single {
         Retrofit.Builder()
-            .baseUrl("https://swapi.dev/api/")
+            .baseUrl(BASE_URL)
             .client(get())
             .addConverterFactory(get())
             .build()
