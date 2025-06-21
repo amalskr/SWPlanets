@@ -53,7 +53,7 @@ fun PlanetListScreen(
     LaunchedEffect(Unit) {
         if (global.planetList.value.isEmpty()) {
             listVm.onLoadPlanetList()
-        }else{
+        } else {
             listVm.planetUiState.value = PlanetUiState.Success(global.planetList.value)
         }
     }
@@ -135,7 +135,7 @@ fun PlanetCard(planet: Planet, onItemClick: (Planet) -> Unit) {
                 verticalArrangement = Arrangement.spacedBy(4.dp),
                 horizontalAlignment = Alignment.Start
             ) {
-                Text(planet.name, style = MaterialTheme.typography.titleMedium)
+                planet.name?.let { Text(it, style = MaterialTheme.typography.titleMedium) }
                 Text("Climate: ${planet.climate}", style = MaterialTheme.typography.bodyMedium)
             }
         }

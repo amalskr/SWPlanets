@@ -32,10 +32,12 @@ fun PlanetDetailScreen(navController: NavController, planet: Planet) {
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(
-                        text = planet.name,
-                        style = MaterialTheme.typography.titleLarge
-                    )
+                    planet.name?.let {
+                        Text(
+                            text = it,
+                            style = MaterialTheme.typography.titleLarge
+                        )
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
