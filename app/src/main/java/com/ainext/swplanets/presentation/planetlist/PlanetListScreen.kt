@@ -24,6 +24,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +43,7 @@ import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import com.ainext.swplanets.utils.GSHolder
+import kotlinx.coroutines.delay
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.koin.compose.koinInject
@@ -54,6 +58,7 @@ fun PlanetListScreen(
     val global = GSHolder.mState
     val uiState by listVm.planetUiState.collectAsState()
     val isOnline = listVm.isOnline.collectAsState()
+    var showNetStatus by remember { mutableStateOf(true) }
 
     //Load MainData
     LaunchedEffect(Unit) {
@@ -61,6 +66,15 @@ fun PlanetListScreen(
             listVm.onLoadPlanetList()
         } else {
             listVm.planetUiState.value = PlanetUiState.Success(global.planetList.value)
+        }
+    }
+
+    //visibility of network connection status
+    LaunchedEffect(isOnline.value) {
+        showNetStatus = true
+        if (isOnline.value) {
+            delay(2000)
+            showNetStatus = false
         }
     }
 
@@ -120,23 +134,25 @@ fun PlanetListScreen(
             }
 
             // Connection Status Banner
-            val statusText =
-                if (isOnline.value) stringResource(R.string.online) else stringResource(R.string.offline_data)
-            val statusColor = if (isOnline.value) Color(0xAA00C853) else Color(0xAAFF5252)
+            if(showNetStatus){
+                val statusText =
+                    if (isOnline.value) stringResource(R.string.online) else stringResource(R.string.offline_data)
+                val statusColor = if (isOnline.value) Color(0xAA00C853) else Color(0xAAFF5252)
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .background(statusColor)
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = statusText,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                        .background(statusColor)
+                        .padding(8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = statusText,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }
