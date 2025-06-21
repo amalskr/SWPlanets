@@ -33,7 +33,12 @@ class PlanetListViewModel(
                     planetUiState.value = PlanetUiState.Error(e.message ?: "Unknown error")
                 }
             } else {
-                planetUiState.value = PlanetUiState.Error("No Internet Connection")
+                if (dbRepo.isHasOfflineData()) {
+                    displayPlanets()
+                } else {
+                    planetUiState.value =
+                        PlanetUiState.Error("No Internet Connection & No Offline Data")
+                }
             }
         }
     }

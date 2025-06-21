@@ -12,4 +12,8 @@ class DBRepository(private val planetsDao: PlanetsDao) {
     suspend fun getAllPlanets(): List<Planet> {
         return planetsDao.getAllPlanets()
     }
+
+    suspend fun isHasOfflineData(): Boolean {
+        return planetsDao.getAllPlanets().isNotEmpty()
+    }
 }
