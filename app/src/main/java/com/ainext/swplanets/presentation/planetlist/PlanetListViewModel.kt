@@ -25,7 +25,7 @@ class PlanetListViewModel(
 
                     if (planetsList.isNotEmpty()) {
                         dbRepo.savePlanets(planetsList)
-                        planetUiState.value = PlanetUiState.Success(planetsList)
+                        displayPlanets()
                     } else {
                         planetUiState.value = PlanetUiState.Error("No planets found")
                     }
@@ -35,6 +35,13 @@ class PlanetListViewModel(
             } else {
                 planetUiState.value = PlanetUiState.Error("No Internet Connection")
             }
+        }
+    }
+
+    private fun displayPlanets() {
+        viewModelScope.launch {
+            val planetsList = dbRepo.getAllPlanets()
+            planetUiState.value = PlanetUiState.Success(planetsList)
         }
     }
 }
