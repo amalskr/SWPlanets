@@ -59,6 +59,7 @@ fun PlanetListScreen(
     val uiState by listVm.planetUiState.collectAsState()
     val isOnline = listVm.isOnline.collectAsState()
     var showNetStatus by remember { mutableStateOf(true) }
+    var wasOffline by remember { mutableStateOf(!isOnline.value) }
 
     //Load MainData
     LaunchedEffect(Unit) {
@@ -76,6 +77,14 @@ fun PlanetListScreen(
             delay(2000)
             showNetStatus = false
         }
+    }
+
+    //Reload when regaining connection
+    LaunchedEffect(isOnline.value) {
+        if (wasOffline && isOnline.value) {
+            listVm.onLoadPlanetList()
+        }
+        wasOffline = !isOnline.value
     }
 
     //Main Content
