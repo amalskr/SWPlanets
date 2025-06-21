@@ -20,8 +20,8 @@ data class Planet(
 @Entity(tableName = "planets")
 data class Planet(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @SerialName("name") val name: String? = null,
-    @SerialName("climate") val climate:  String? = null,
-    @SerialName("gravity") val gravity:  String? = null,
+    val name: String? = null,
+    val climate:  String? = null,
+    val gravity:  String? = null,
     @SerialName("orbital_period") val orbitalPeriod:  String? = null
 )
