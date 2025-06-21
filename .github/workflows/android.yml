@@ -1,0 +1,55 @@
+name: Android CI-CD
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  build:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    if: github.ref == 'refs/heads/development' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant Execute Permission to Gradle Wrapper
+        run: chmod +x ./gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew bundleDebug
+
+      - name: Get Branch Type and Rename APK
+        run: |
+          RAW_BRANCH="${GITHUB_REF##*/}"
+          if [[ "$RAW_BRANCH" == "main" ]]; then
+            SHORT_NAME="main"
+          elif [[ "$RAW_BRANCH" == "development" ]]; then
+            SHORT_NAME="dev"
+          else
+            SHORT_NAME="feature"
+          fi
+
+          FINAL_NAME="app_${SHORT_NAME}.apk"
+          echo "FINAL_NAME=${FINAL_NAME}" >> $GITHUB_ENV
+
+          mv app/build/outputs/bundle/debug/app-debug.apk \
+             app/build/outputs/bundle/debug/${FINAL_NAME}
+
+          echo "RENAMED_AAB_PATH=app/build/outputs/bundle/debug/${FINAL_NAME}" >> $GITHUB_ENV
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.FINAL_NAME }}
+          path: ${{ env.RENAMED_AAB_PATH }}
