@@ -1,4 +1,4 @@
-package com.ainext.swplanets.presentation.di
+package com.ainext.swplanets.di
 
 import androidx.room.Room
 import com.ainext.swplanets.data.core.NetworkConstants.BASE_URL
