@@ -28,6 +28,9 @@ This is a simple yet modern Android app that displays a list of planets fetched 
 - **Koin** for Dependency Injection
 - **StateFlow** for reactive UI state management
 - **Navigation Compose** for screen transitions
+- **Kotlin Coroutines**
+- **Room DB**
+- **Material 3**
 
 ---
 
@@ -50,8 +53,27 @@ This is a simple yet modern Android app that displays a list of planets fetched 
 
 ---
 
+## Offline Support & Network Awareness - V2
+
+- **Offline Data Caching**  
+  Planets are cached locally using **Room database** on the first successful network call.
+
+- **Offline Mode UI**  
+  When the app is offline:
+  - A **semi-transparent red banner** is displayed at the bottom.
+  - Data is served from the local database.
+  - The banner updates to **green with “Online”** once connection is restored, then auto-dismisses after 2 seconds.
+
+- **Auto Reload on Reconnection**  
+  If the app was offline and network becomes available, it **automatically re-fetches the latest planet list** to keep the data fresh.
+
+- **No Internet & No Data**  
+  A graceful error is shown if there’s no internet and no previously cached data.
+
+---
+
 ## Release 
 
 - v1 - Core feature (Splash Screen, List Screen and Details Screen) - DONE
-- v2 - Offline Support (PENDING)
+- v2 - Offline Support (DONE)
 - v3 - Pagination (PENDING)
