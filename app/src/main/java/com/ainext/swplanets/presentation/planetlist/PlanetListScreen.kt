@@ -1,6 +1,7 @@
 package com.ainext.swplanets.presentation.planetlist
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -25,11 +26,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
+import com.ainext.swplanets.R
 import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
@@ -48,6 +53,7 @@ fun PlanetListScreen(
 ) {
     val global = GSHolder.mState
     val uiState by listVm.planetUiState.collectAsState()
+    val isOnline = listVm.isOnline.collectAsState()
 
     //Load MainData
     LaunchedEffect(Unit) {
@@ -111,6 +117,26 @@ fun PlanetListScreen(
                         Text(text = message, color = MaterialTheme.colorScheme.error)
                     }
                 }
+            }
+
+            // Connection Status Banner
+            val statusText =
+                if (isOnline.value) stringResource(R.string.online) else stringResource(R.string.offline_data)
+            val statusColor = if (isOnline.value) Color(0xAA00C853) else Color(0xAAFF5252)
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.BottomCenter)
+                    .background(statusColor)
+                    .padding(8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = statusText,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }

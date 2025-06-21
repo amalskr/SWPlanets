@@ -6,6 +6,9 @@ import com.ainext.swplanets.data.db.DBRepository
 import com.ainext.swplanets.data.repository.PlanetRepository
 import com.ainext.swplanets.utils.NetworkObserver
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class PlanetListViewModel(
@@ -15,6 +18,8 @@ class PlanetListViewModel(
 ) : ViewModel() {
 
     val planetUiState = MutableStateFlow<PlanetUiState>(PlanetUiState.Loading)
+    val isOnline: StateFlow<Boolean> = NetworkObserver.observeNetwork()
+        .stateIn(viewModelScope, SharingStarted.Eagerly, NetworkObserver.isNetworkAvailable())
 
     fun onLoadPlanetList() {
         viewModelScope.launch {
