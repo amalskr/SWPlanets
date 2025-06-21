@@ -72,6 +72,17 @@ This is a simple yet modern Android app that displays a list of planets fetched 
 
 ---
 
+## CI/CD pipeline with GitHub Actions
+
+This project uses **GitHub Actions** to automate the build process for the Android application. The pipeline is triggered **on every push to the `development` branch** and performs the following tasks:
+
+1. **Checkout the Code**: Retrieves the latest code from the repository.
+2. **Build Debug APK**: Uses Gradle to build the debug APK with `assembleDebug`.
+3. **Rename APK Based on Branch**: Renames the generated APK to include the branch name (`main`, `dev`, or `feature`) for clarity.
+4. **Upload APK as an Artifact**: The renamed APK is uploaded and made available as a downloadable artifact from the GitHub Actions run.
+
+---
+
 ## Release 
 
 - v1 - Core feature (Splash Screen, List Screen and Details Screen) - DONE
