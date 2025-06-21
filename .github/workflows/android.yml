@@ -27,7 +27,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build Debug APK
-        run: ./gradlew bundleDebug
+        run: ./gradlew assembleDebug
 
       - name: Get Branch Type and Rename APK
         run: |
