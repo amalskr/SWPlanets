@@ -61,5 +61,5 @@ val appModule = module {
     // Product Repository
     single { DBRepository(get()) }
 
-    viewModel { PlanetListViewModel(get(), get()) }
+    viewModel { PlanetListViewModel(get(), get(), get()) }
 }

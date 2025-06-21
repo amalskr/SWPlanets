@@ -9,7 +9,7 @@ import com.ainext.swplanets.domain.Planet
 @Dao
 interface PlanetsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun savePlanets(products: List<Planet>)
+    suspend fun savePlanets(planets: List<Planet>)
 
     @Query("SELECT * FROM planets")
     suspend fun getAllPlanets(): List<Planet>
