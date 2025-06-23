@@ -44,6 +44,7 @@ import com.ainext.swplanets.R
 import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
+import com.ainext.swplanets.ui.common.AlertConfig
 import com.ainext.swplanets.ui.common.AppNotifier
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import com.ainext.swplanets.utils.GSHolder
@@ -84,6 +85,17 @@ fun PlanetListScreen(
                 title = "Notice",
                 message = "This is an alert dialog"
             )*/
+
+            AppNotifier.alert(
+                AlertConfig(
+                    title = "Message Title",
+                    message = "Are you sure you want to delete this?",
+                    positiveButtonText = "Yes",
+                    negativeButtonText = "Cancel",
+                    onPositiveClick = { println("User confirmed") },
+                    onNegativeClick = { println("User cancelled") }
+                )
+            )
         }
     }
 

@@ -27,16 +27,24 @@ object AppNotifier {
     }
 
     // Show AlertDialog
-    fun alert(
-        title: String,
-        message: String,
-        positiveButton: String = "OK"
-    ) {
-        AlertDialog.Builder(mActivity).apply {
-            setTitle(title)
-            setMessage(message)
-            setPositiveButton(positiveButton, null)
-            show()
+    fun alert(config: AlertConfig) {
+
+        if (mActivity?.isFinishing == false) {
+            val builder = AlertDialog.Builder(mActivity)
+                .setTitle(config.title)
+                .setMessage(config.message)
+                .setPositiveButton(config.positiveButtonText) { _, _ ->
+                    config.onPositiveClick?.invoke()
+                }
+
+            // Add negative button if provided
+            config.negativeButtonText?.let {
+                builder.setNegativeButton(it) { _, _ ->
+                    config.onNegativeClick?.invoke()
+                }
+            }
+
+            builder.show()
         }
     }
 }
