@@ -1,5 +1,6 @@
 package com.ainext.swplanets.presentation.planetlist
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,6 +39,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.ainext.swplanets.R
+import com.ainext.swplanets.SwPlanetsApp.Companion.context
 import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
@@ -58,8 +60,21 @@ fun PlanetListScreen(
     val global = GSHolder.mState
     val uiState by listVm.planetUiState.collectAsState()
     val isOnline = listVm.isOnline.collectAsState()
+    //val fetchState = listVm.fetchState.collectAsState()
     var showNetStatus by remember { mutableStateOf(true) }
     var wasOffline by remember { mutableStateOf(!isOnline.value) }
+
+    // Show toast
+    LaunchedEffect(Unit) {
+        listVm.toastFlow.collect { message ->
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    //track fetchState
+    /*LaunchedEffect(fetchState.value) {
+        val state = fetchState.value
+    }*/
 
     //Load MainData
     LaunchedEffect(Unit) {
@@ -143,7 +158,7 @@ fun PlanetListScreen(
             }
 
             // Connection Status Banner
-            if(showNetStatus){
+            if (showNetStatus) {
                 val statusText =
                     if (isOnline.value) stringResource(R.string.online) else stringResource(R.string.offline_data)
                 val statusColor = if (isOnline.value) Color(0xAA00C853) else Color(0xAAFF5252)
