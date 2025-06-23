@@ -1,6 +1,5 @@
 package com.ainext.swplanets.presentation.planetlist
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +19,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +27,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,10 +40,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.ainext.swplanets.R
-import com.ainext.swplanets.SwPlanetsApp.Companion.context
 import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
+import com.ainext.swplanets.ui.common.AppNotifier
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import com.ainext.swplanets.utils.GSHolder
 import kotlinx.coroutines.delay
@@ -64,10 +65,24 @@ fun PlanetListScreen(
     var showNetStatus by remember { mutableStateOf(true) }
     var wasOffline by remember { mutableStateOf(!isOnline.value) }
 
+    val sbHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
+
     // Show toast
     LaunchedEffect(Unit) {
         listVm.toastFlow.collect { message ->
-            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            //AppNotifier.toast(message)
+
+            /*AppNotifier.snackbar(
+                scope = coroutineScope,
+                sbHostState = sbHostState,
+                message = message
+            )*/
+
+            AppNotifier.alert(
+                title = "Notice",
+                message = "This is an alert dialog"
+            )
         }
     }
 
