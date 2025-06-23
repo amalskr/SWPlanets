@@ -86,7 +86,7 @@ fun PlanetListScreen(
                 message = "This is an alert dialog"
             )*/
 
-            AppNotifier.alert(
+            /*AppNotifier.alert(
                 AlertConfig(
                     title = "Message Title",
                     message = "Are you sure you want to delete this?",
@@ -95,7 +95,7 @@ fun PlanetListScreen(
                     onPositiveClick = { println("User confirmed") },
                     onNegativeClick = { println("User cancelled") }
                 )
-            )
+            )*/
         }
     }
 
