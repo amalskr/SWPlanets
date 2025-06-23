@@ -19,6 +19,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,18 +72,18 @@ fun PlanetListScreen(
     // Show toast
     LaunchedEffect(Unit) {
         listVm.toastFlow.collect { message ->
-            //AppNotifier.toast(message)
+            AppNotifier.toast(message)
 
-            /*AppNotifier.snackbar(
+            /*AppNotifier.snackBar(
                 scope = coroutineScope,
                 sbHostState = sbHostState,
                 message = message
             )*/
 
-            AppNotifier.alert(
+            /*AppNotifier.alert(
                 title = "Notice",
                 message = "This is an alert dialog"
-            )
+            )*/
         }
     }
 
@@ -119,6 +120,7 @@ fun PlanetListScreen(
 
     //Main Content
     Scaffold(
+        snackbarHost = { SnackbarHost(sbHostState) },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {

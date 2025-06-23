@@ -1,11 +1,10 @@
 package com.ainext.swplanets.ui.common
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.widget.Toast
 import androidx.compose.material3.SnackbarHostState
 import com.ainext.swplanets.SwPlanetsApp.Companion.context
-import com.ainext.swplanets.SwPlanetsApp.Companion.currentActivity
+import com.ainext.swplanets.SwPlanetsApp.Companion.mActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -16,8 +15,8 @@ object AppNotifier {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    // Show Snackbar
-    fun snackbar(
+    // Show SnackBar
+    fun snackBar(
         scope: CoroutineScope,
         sbHostState: SnackbarHostState,
         message: String
@@ -33,7 +32,7 @@ object AppNotifier {
         message: String,
         positiveButton: String = "OK"
     ) {
-        AlertDialog.Builder(currentActivity).apply {
+        AlertDialog.Builder(mActivity).apply {
             setTitle(title)
             setMessage(message)
             setPositiveButton(positiveButton, null)
