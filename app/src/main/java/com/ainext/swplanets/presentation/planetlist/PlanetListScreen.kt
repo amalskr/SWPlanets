@@ -45,6 +45,7 @@ import com.ainext.swplanets.data.common.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.common.AppNotifier
+import com.ainext.swplanets.ui.components.NormalLoader
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import com.ainext.swplanets.utils.StateHolder
 import kotlinx.coroutines.delay
@@ -151,7 +152,7 @@ fun PlanetListScreen(
                 //Loading View
                 is PlanetUiState.Loading -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator()
+                        NormalLoader()
                     }
                 }
 

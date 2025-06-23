@@ -1,6 +1,8 @@
 package com.ainext.swplanets.presentation.splash
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -9,9 +11,12 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ainext.swplanets.presentation.Screen
+import com.ainext.swplanets.ui.components.SmallLoader
+import com.ainext.swplanets.ui.components.SpacerUp
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
 import kotlinx.coroutines.delay
 
@@ -27,13 +32,19 @@ fun SplashScreen(navController: NavController) {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "Star Wars Planets",
-            style = MaterialTheme.typography.headlineMedium
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = "Star Wars Planets",
+                style = MaterialTheme.typography.headlineMedium
+            )
+            SpacerUp(16.dp)
+            SmallLoader()
+        }
     }
 }
 
