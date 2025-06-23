@@ -7,15 +7,15 @@ import kotlinx.serialization.json.Json
 
 class Converters {
 
-    // Serialize Product to a JSON string
+    // Serialize Planet to a JSON string
     @TypeConverter
-    fun fromProduct(planet: Planet?): String? {
+    fun fromPlanet(planet: Planet?): String? {
         return planet?.let { Json.encodeToString(it) }
     }
 
     // Deserialize JSON string back to Planet
     @TypeConverter
-    fun toProduct(jsonStr: String?): Planet? {
+    fun toPlanet(jsonStr: String?): Planet? {
         return jsonStr?.let { Json.decodeFromString(it) }
     }
 }

@@ -11,6 +11,7 @@ import com.ainext.swplanets.data.service.PlanetApiService
 import com.ainext.swplanets.presentation.planetlist.PlanetListViewModel
 import com.ainext.swplanets.utils.NetworkObserver
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -18,16 +19,19 @@ import org.koin.dsl.module
 import retrofit2.Converter
 import retrofit2.Retrofit
 
+private val json = Json {
+    ignoreUnknownKeys = true
+    isLenient = true
+    prettyPrint = true
+}
+
+@OptIn(ExperimentalSerializationApi::class)
 val appModule = module {
     single { NetworkObserver }
 
     //Json Convertor
     single<Converter.Factory> {
-        Json {
-            ignoreUnknownKeys = true
-            isLenient = true
-            prettyPrint = true
-        }.asConverterFactory("application/json".toMediaType())
+        json.asConverterFactory("application/json".toMediaType())
     }
 
     //this is unsafe call to prevent ssl issue in base api
