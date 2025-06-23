@@ -44,10 +44,9 @@ import com.ainext.swplanets.R
 import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
-import com.ainext.swplanets.ui.common.AlertConfig
 import com.ainext.swplanets.ui.common.AppNotifier
 import com.ainext.swplanets.ui.theme.SWPlanetsTheme
-import com.ainext.swplanets.utils.GSHolder
+import com.ainext.swplanets.utils.StateHolder
 import kotlinx.coroutines.delay
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -60,7 +59,7 @@ fun PlanetListScreen(
     navController: NavController,
     listVm: PlanetListViewModel = koinInject()
 ) {
-    val global = GSHolder.mState
+    val gState = StateHolder.state.value
     val uiState by listVm.planetUiState.collectAsState()
     val isOnline = listVm.isOnline.collectAsState()
     //val fetchState = listVm.fetchState.collectAsState()
@@ -106,10 +105,10 @@ fun PlanetListScreen(
 
     //Load MainData
     LaunchedEffect(Unit) {
-        if (global.planetList.value.isEmpty()) {
+        if (gState.planetList.isEmpty()) {
             listVm.onLoadPlanetList()
         } else {
-            listVm.planetUiState.value = PlanetUiState.Success(global.planetList.value)
+            listVm.planetUiState.value = PlanetUiState.Success(gState.planetList)
         }
     }
 
@@ -159,7 +158,7 @@ fun PlanetListScreen(
                 //Main List
                 is PlanetUiState.Success -> {
                     val planets = (uiState as PlanetUiState.Success).planets
-                    global.planetList.value = planets
+                    StateHolder.updatePlanetList(planets)
 
                     LazyColumn(
                         modifier = Modifier
