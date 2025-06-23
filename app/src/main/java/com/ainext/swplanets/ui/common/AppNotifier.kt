@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 object AppNotifier {
 
     // Show Toast
-    fun toast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    fun toast(message: String, duration: ToastDuration = ToastDuration.SHORT) {
+        Toast.makeText(context, message, duration.value).show()
     }
 
     // Show SnackBar
