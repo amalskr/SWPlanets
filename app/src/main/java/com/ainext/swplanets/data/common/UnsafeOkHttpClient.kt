@@ -1,4 +1,4 @@
-package com.ainext.swplanets.data.core
+package com.ainext.swplanets.data.common
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

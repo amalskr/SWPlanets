@@ -1,8 +1,8 @@
 package com.ainext.swplanets.di
 
 import androidx.room.Room
-import com.ainext.swplanets.data.core.NetworkConstants.BASE_URL
-import com.ainext.swplanets.data.core.UnsafeOkHttpClient
+import com.ainext.swplanets.data.common.NetworkConstants.BASE_URL
+import com.ainext.swplanets.data.common.UnsafeOkHttpClient
 import com.ainext.swplanets.data.db.DBRepository
 import com.ainext.swplanets.data.db.PlanetsDatabase
 import com.ainext.swplanets.data.repository.PlanetRepository

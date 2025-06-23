@@ -22,7 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
+import com.ainext.swplanets.data.common.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 
 @OptIn(ExperimentalMaterial3Api::class)

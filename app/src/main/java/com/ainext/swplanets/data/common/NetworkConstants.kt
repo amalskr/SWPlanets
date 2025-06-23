@@ -1,4 +1,4 @@
-package com.ainext.swplanets.data.core
+package com.ainext.swplanets.data.common
 
 object NetworkConstants {
     const val BASE_URL = "https://swapi.dev/api/"

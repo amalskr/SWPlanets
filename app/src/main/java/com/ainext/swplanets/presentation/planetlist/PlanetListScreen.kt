@@ -41,7 +41,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.ainext.swplanets.R
-import com.ainext.swplanets.data.core.NetworkConstants.IMAGE_URL
+import com.ainext.swplanets.data.common.NetworkConstants.IMAGE_URL
 import com.ainext.swplanets.domain.Planet
 import com.ainext.swplanets.presentation.Screen
 import com.ainext.swplanets.ui.common.AppNotifier
