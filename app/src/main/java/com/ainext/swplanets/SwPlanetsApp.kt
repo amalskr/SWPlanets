@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import com.ainext.swplanets.di.appModule
+import com.ainext.swplanets.di.appModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import java.lang.ref.WeakReference
@@ -29,7 +29,7 @@ class SwPlanetsApp : Application() {
 
         startKoin {
             androidContext(this@SwPlanetsApp)
-            modules(appModule)
+            modules(appModules)
         }
 
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
